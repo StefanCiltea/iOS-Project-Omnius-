@@ -6,9 +6,11 @@ public class RemoveParent : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (string.Compare(collision.gameObject.name,"GarbageCollector") == 0)
+        if (string.Compare(collision.gameObject.name, "GarbageCollector") == 0)
         {
-            GameObject parent = this.gameObject.transform.parent.gameObject;
+
+            GameObject parent = transform.parent.gameObject;
+
             if(parent)
             {
                 Destroy(parent);

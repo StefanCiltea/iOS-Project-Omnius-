@@ -37,10 +37,14 @@ public class CameraController : MonoBehaviour {
     private void Update()
     {
         mLowerLimit = transform.position + mOffset;
-        if (mCharacter.GetComponent<PlayerController>().mJumpedOnce)
-        {
+        PlayerController pcontroller = mCharacter.GetComponent<PlayerController>();
 
+        AgentMovementControll agentMovement = mCharacter.GetComponentInChildren<AgentMovementControll>();
+
+        if ((pcontroller && pcontroller.mJumpedOnce) || (agentMovement && agentMovement.mJumpedOnce))
+        {
             transform.position += Vector3.up * Time.deltaTime * mDificultyScale * ComputeCameraSpeed(mCharacter.transform.position.y - mLowerLimit.y);
         }
+
     }
 }

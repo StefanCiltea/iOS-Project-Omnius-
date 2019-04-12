@@ -20,6 +20,18 @@ public class ObstacolCollider : MonoBehaviour {
                 GameObject gameControllerOb = GameObject.FindGameObjectWithTag("GameController");
                 gameControllerOb.GetComponent<GameController>().GameOver();
             }
+        } else if (collision.gameObject.tag == "Agent")
+        {
+            AgentMovementControll agentMovement = collision.gameObject.GetComponent<AgentMovementControll>();
+            if (agentMovement.IsInvulnerable())
+            {
+                GameObject parent = this.transform.parent.gameObject;
+                Destroy(parent);
+                agentMovement.MakeVulnerable();
+            } else
+            {
+                agentMovement.onObstacleHit();
+            }
         }
     }
 }

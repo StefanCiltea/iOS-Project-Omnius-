@@ -100,7 +100,13 @@ public class PlayerController : MonoBehaviour
         {
             mJumpedOnce = true;
             mJumpReady = true;
+        }
 
+        if(collision.gameObject.tag == "GarbageCollector")
+        {
+            GameObject gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+            GameController gcScript = gameControllerObject.GetComponent<GameController>();
+            gcScript.GameOver();
         }
         
     }

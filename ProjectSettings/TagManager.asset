@@ -15,6 +15,7 @@ TagManager:
   - ClonaObstacol
   - ObstacolColider
   - Perk
+  - Agent
   layers:
   - Default
   - TransparentFX
