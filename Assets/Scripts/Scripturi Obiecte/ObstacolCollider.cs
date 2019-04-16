@@ -28,9 +28,20 @@ public class ObstacolCollider : MonoBehaviour {
                 GameObject parent = this.transform.parent.gameObject;
                 Destroy(parent);
                 agentMovement.MakeVulnerable();
+
+                foreach (Transform child in this.transform.parent.parent)
+                {
+                    if (child.tag == "Agent")
+                    {
+                        GhemAgent script = child.GetComponent<GhemAgent>();
+                        script.onObstacleDestroyed();
+                        break;
+                    }
+                }
+
             } else
             {
-                agentMovement.onObstacleHit();
+                agentMovement.GetComponentInParent<GhemAgent>().onObstacleHit();
             }
         }
     }

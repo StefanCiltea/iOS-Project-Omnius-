@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FullDisplayCamera.cs" />
      <Compile Include="Assets\GameAcademy.cs" />
      <Compile Include="Assets\GhemAgent.cs" />
      <Compile Include="Assets\ML-Agents\Examples\3DBall\Scripts\Ball3DAcademy.cs" />
@@ -167,7 +168,9 @@
      <Compile Include="Assets\Scripts\BackgroundGenerator.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DatabaseModel.cs" />
+     <Compile Include="Assets\Scripts\FollowTarget.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\Helper.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\RemoveParent.cs" />
      <Compile Include="Assets\Scripts\Remover.cs" />
@@ -177,6 +180,7 @@
      <Compile Include="Assets\Scripts\Scripturi Obiecte\ObstacolController.cs" />
      <Compile Include="Assets\Scripts\Scripturi Obiecte\PerkController.cs" />
      <Compile Include="Assets\Scripts\WallGenerator.cs" />
+     <Compile Include="Assets\WallScript.cs" />
      <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Experimental.compute" />
      <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Conv.compute" />
      <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Random.cginc" />

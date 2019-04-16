@@ -68,11 +68,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(SpawnPerkAfterTime(15));
-        mCloneObstacle = GameObject.FindGameObjectWithTag("ClonaObstacol");
+        mCloneObstacle = GameObject.FindGameObjectWithTag("ObstacolBase");
 
         // Se updateaza scorul maxim
         mHighestScore = DatabaseModel.Instance.GetMaxScore();
-       
+
 
         // Configuratie initiala
         Time.timeScale = 1f;
@@ -87,7 +87,6 @@ public class GameController : MonoBehaviour
         Vector2 edgeVector = Camera.main.ViewportToWorldPoint(topRightCorner);  // Contine coordonatele coltului dreapta-sus al ecranului in starea initiala
         mScreenHeight = edgeVector.y * 2;
         mScreenWidth = edgeVector.x * 2;
-
         // Se calculeaza marginile impreuna cu alte dimensiuni pentru calcule ulterioare
         mWallBoundsSize = GameObject.FindGameObjectWithTag("PereteDreaptaBase").GetComponent<BoxCollider2D>().bounds.size;  // .x = width , .y = height, .z = depth of the gameobject
         mThirdPercentHeight = 0.33f * mScreenHeight;
@@ -99,7 +98,8 @@ public class GameController : MonoBehaviour
     }
     public void SpawnWalls(GameObject cloneWalls, float size)
     {
-        Instantiate(cloneWalls, cloneWalls.transform.position + new Vector3(0, size, 0), cloneWalls.transform.rotation);
+        GameObject clonew = Instantiate(cloneWalls, cloneWalls.transform.position + new Vector3(0, size, 0), cloneWalls.transform.rotation);
+        clonew.tag = "PerechePereti";
     }
 
     private int ChoseRandomHorizontalPosition(int[] fromAvailable, out float xpos)
@@ -242,7 +242,7 @@ public class GameController : MonoBehaviour
         {
             // dreapta jos
 
-            choseAxis = 0;  // nu mai ramane nimic de ales la final			 
+            choseAxis = 0;  // nu mai ramane nimic de ales la final
             xpos = UnityEngine.Random.Range(mScreenLeftMarginX + mOffsetFromWalls, mScreenLeftMarginX + mThirdPercentWidth);
             int chosenPosition = ChoseRandomVerticalPosition(availableVert, screenTopMarginY, out ypos);    // chose a vertical position and set in ypos
             choseFromPositionsVert[chosenPosition] = 0;	// unset the position
@@ -323,7 +323,7 @@ public class GameController : MonoBehaviour
         bool weReverse;
 
 
-        // se spawneaza obiectele 
+        // se spawneaza obiectele
         for (int i = 0; i < numberOfObjects; i++)
         {
             if (UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f)
@@ -344,11 +344,12 @@ public class GameController : MonoBehaviour
             }
             float speedRand = UnityEngine.Random.Range(1, 2);
             Vector2 spawnOrigin = WhereToSpawnObstacle(direction, atCameraOrigin, ref horizontalPosAvailable, ref verticalPosAvailable);   // !!! Direction must not be normalized
-            AbstractObiectController.ComputeTargetPoint(spawnOrigin, direction.normalized, 2);
+            AbstractObiectController.ComputeTargetPoint(spawnOrigin, direction.normalized, 0.5f);
 
-            GameObject newObstacle = Instantiate(mCloneObstacle, spawnOrigin, mCloneObstacle.transform.rotation);
+            GameObject newObstacle = Instantiate(mCloneObstacle, atCameraOrigin, mCloneObstacle.transform.rotation);
             newObstacle.GetComponent<ObstacolController>().SetAndComputeProperties(direction, newObstacle.transform.position, speedRand, 2);
-            newObstacle.gameObject.tag = "Obstacol";
+            newObstacle.gameObject.tag = "ClonaObstacol";
+            newObstacle.transform.parent = this.transform.parent;
 
             if (weReverse == true)
             {
@@ -421,13 +422,24 @@ public class GameController : MonoBehaviour
     }
     IEnumerator SpawnPerkAfterTime(float time)
     {
+
         float modifier;
         while (true)
         {
             modifier = UnityEngine.Random.RandomRange(-5,5);
             yield return new WaitForSeconds(time + modifier);
-            Instantiate(mPerkClone, new Vector3(mCamera.transform.position.x + UnityEngine.Random.Range(0, 1), mCamera.transform.position.y + 10, mPerkClone.transform.position.z), mPerkClone.transform.rotation);
 
+            foreach(Transform child in transform.parent)
+            {
+                if(child.gameObject.tag == "PerkClone")
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            GameObject clone = Instantiate(mPerkClone, new Vector3(mCamera.transform.position.x + UnityEngine.Random.Range(0, 1), mCamera.transform.position.y + 10, mPerkClone.transform.position.z), mPerkClone.transform.rotation);
+            clone.tag = "PerkClone";
+            clone.transform.parent = this.transform.parent;
         }
     }
 }

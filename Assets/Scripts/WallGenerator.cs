@@ -9,17 +9,26 @@ public class WallGenerator : MonoBehaviour {
     private void Start()
     {
         mGameControllerScript = mGameController.GetComponent<GameController>();
-        if(mGameControllerScript.GetScreenHeight() != 0)
-        {
-            mNextScreenY = transform.parent.Find("PereteStanga").transform.position.y + mGameControllerScript.GetScreenHeight();
-        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.name == "Spawner")
         {
-            mGameControllerScript.SpawnWalls(this.gameObject.transform.parent.gameObject, mGameControllerScript.GetScreenHeight());   // Spawn pereti noi
-            mGameControllerScript.SpawnMovingObstacle(new Vector2(mGameControllerScript.mCamera.transform.position.x, mNextScreenY),UnityEngine.Random.Range(1,3));
+            float rand = Random.Range(0f, 1f);
+            Debug.Log("rand = " + rand);
+            if (rand <= 0.6f)
+            {
+                mGameControllerScript.SpawnMovingObstacle(new Vector2(mGameController.transform.parent.position.x, this.gameObject.transform.position.y + mGameControllerScript.GetScreenHeight()), 1);
+            }
+            GameObject clone = Instantiate(this.gameObject, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + mGameControllerScript.GetScreenHeight()), this.gameObject.transform.rotation);
+
+            clone.tag = "ObstacleGeneratorClone";
+            clone.transform.parent = this.transform.parent;
+
+            if (this.tag != "ObstacleGenerator")
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: e80e9dcf4bf7381488e87b1bdfa5236a
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400002: Assets/Models/BetterBC.nn
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 83221ad3db87f4b3b91b041047cb2bc5, type: 3}

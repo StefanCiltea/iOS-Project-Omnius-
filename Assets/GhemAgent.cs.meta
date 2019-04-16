@@ -4,9 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - brain: {fileID: 11400000, guid: 7803903be583fad49ae75c227e6f80d7, type: 2}
-  - mGameControllerObj: {instanceID: 0}
-  - Target: {instanceID: 0}
+  - brain: {fileID: 11400000, guid: 360b44eaf45ce574e83cd6274ea56517, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

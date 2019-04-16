@@ -7,12 +7,13 @@ public class CameraController : MonoBehaviour {
     private Vector3 mLowerLimit;
     public Vector3 mOffset;
     public float mDificultyScale;
-
+    public Vector3 mInitialPos;
 	private Camera camera;
 
     // Use this for initialization
     private void Start () {
 		camera = GetComponent<Camera> ();
+        mInitialPos = this.transform.position;
     }
 
 	
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour {
        	
         if (x > Mathf.Epsilon)	// daca distanta e foarte aproape de limita inferioara camera se ridica cu viteza implicita  
         {
-        	rvalue = Mathf.Pow(2.14f,(x / 2f));	// functie exponentiala ce are graficul asemanator cu e^x
+        	rvalue = Mathf.Pow(2.14f,(x / 1f));	// functie exponentiala ce are graficul asemanator cu e^x
         }
 
         return rvalue;
@@ -34,7 +35,7 @@ public class CameraController : MonoBehaviour {
 	private Vector3 velocity = Vector3.zero;
 	public Transform target;
 
-    private void Update()
+    private void FixedUpdate()
     {
         mLowerLimit = transform.position + mOffset;
         PlayerController pcontroller = mCharacter.GetComponent<PlayerController>();
@@ -43,7 +44,7 @@ public class CameraController : MonoBehaviour {
 
         if ((pcontroller && pcontroller.mJumpedOnce) || (agentMovement && agentMovement.mJumpedOnce))
         {
-            transform.position += Vector3.up * Time.deltaTime * mDificultyScale * ComputeCameraSpeed(mCharacter.transform.position.y - mLowerLimit.y);
+            transform.position += Vector3.up * Time.fixedDeltaTime * mDificultyScale * ComputeCameraSpeed(mCharacter.transform.position.y - mLowerLimit.y);
         }
 
     }

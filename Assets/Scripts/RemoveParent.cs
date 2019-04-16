@@ -13,6 +13,14 @@ public class RemoveParent : MonoBehaviour {
 
             if(parent)
             {
+                foreach(Transform child in this.transform.parent.parent)
+                {
+                    if (this.transform.parent.gameObject.tag == "ClonaObstacol" && child.tag == "Agent")
+                    {
+                        GhemAgent script = child.gameObject.GetComponent<GhemAgent>();
+                        script.onObstacleDestroyed();
+                    }
+                }
                 Destroy(parent);
             }
         }

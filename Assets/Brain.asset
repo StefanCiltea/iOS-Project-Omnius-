@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Brain
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 9
-    numStackedVectorObservations: 1
-    vectorActionSize: 01000000
+    vectorObservationSize: 14
+    numStackedVectorObservations: 5
+    vectorActionSize: 02000000
     cameraResolutions: []
     vectorActionDescriptions:
-    - Jump
-    vectorActionSpaceType: 1
-  model: {fileID: 0}
-  inferenceDevice: 0
+    - 
+    vectorActionSpaceType: 0
+  model: {fileID: 11400000, guid: bcf51b743d2af9d41a001612cda32f1b, type: 3}
+  inferenceDevice: 1

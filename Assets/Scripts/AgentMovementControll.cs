@@ -35,6 +35,7 @@ public class AgentMovementControll : MonoBehaviour
     {
         if (mJumpReady)
         {
+            mRbody.velocity = Vector2.zero;
             mRbody.AddForce(new Vector2(1100 * mDirection , 950));
             mJumpReady = false;
             mDirection *= -1;
@@ -70,14 +71,14 @@ public class AgentMovementControll : MonoBehaviour
     public void MakeInvulnerable()
     {
         mIsInvulnerable = true;
-        mSpriteRenderer.color = new Color(1f, 1f, 1f, .5f);
+        mSpriteRenderer.color = new Color(251f, 0f, 255f, .5f);
         StartCoroutine(VulnerabilityTimer(10));
 
     }
     public void MakeVulnerable()
     {
         mIsInvulnerable = false;
-        mSpriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        mSpriteRenderer.color = new Color(251f, 0f, 255f, 1f);
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -86,24 +87,19 @@ public class AgentMovementControll : MonoBehaviour
         {
             mJumpedOnce = true;
             mJumpReady = true;
-            mHitWall = true;
-            Debug.Log("Hit perete");
-
+            this.GetComponentInParent<GhemAgent>().onWallHit();
         }
 
         if (collision.gameObject.tag == "GarbageCollector")
         {
-            mHitGarbageCollector = true;
-            Debug.Log("Hit gb collector");
-
+            this.GetComponentInParent<GhemAgent>().onGbCollectorHit();
         }
 
-    }
+        if (collision.gameObject.tag == "Ground")
+        {
+            this.GetComponentInParent<GhemAgent>().onPlatform();
+        }
 
-    public void onObstacleHit()
-    {
-            mHitObstacle = true;
-            Debug.Log("Hit obstacle");
     }
 
     IEnumerator VulnerabilityTimer(float time)

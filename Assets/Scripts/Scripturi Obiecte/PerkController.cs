@@ -21,6 +21,11 @@ public class PerkController : AbstractObiectController
             print("invlulnerabile");
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             playerController.MakeInvulnerable();
+        } else if (collision.gameObject.tag == "Agent")
+        {
+            AgentMovementControll agentMovement = collision.gameObject.GetComponent<AgentMovementControll>();
+            agentMovement.MakeInvulnerable();
+            agentMovement.GetComponentInParent<GhemAgent>().onPerkHit();
         }
     }
 }
