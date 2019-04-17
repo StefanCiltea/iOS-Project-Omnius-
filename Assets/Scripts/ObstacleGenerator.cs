@@ -17,10 +17,17 @@ public class ObstacleGenerator : MonoBehaviour {
             if (rand <= 0.6f)
             {
                 Debug.Log("Screen Height" + collision.transform.localPosition);
-
-                mGameControllerScript.SpawnMovingObstacle(new Vector2(this.transform.localPosition.x, collision.transform.parent.localPosition.y + mGameControllerScript.GetScreenHeight()), 1);
+                float screenWidthInCoords = mGameControllerScript.GetScreenWidth();
+                float randomX = Random.Range(
+                    this.gameObject.transform.position.x - screenWidthInCoords / 2 + mGameControllerScript.mWallBoundsSize.x * 2, 
+                    this.gameObject.transform.position.x + screenWidthInCoords / 2 - mGameControllerScript.mWallBoundsSize.x * 2
+                    );
+                mGameControllerScript.SpawnMovingObstacle(
+                    new Vector2(randomX, collision.transform.parent.localPosition.y + mGameControllerScript.GetScreenHeight() * 2),
+                    1
+                    );
             }
-
+           
             GameObject clone = Instantiate(this.gameObject, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.localPosition.y + mGameControllerScript.GetScreenHeight()), this.gameObject.transform.rotation);
 
             clone.tag = "ObstacleGeneratorClone";

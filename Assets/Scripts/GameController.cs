@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
     private bool mGameIsPaused;
     private ScoreModel mHighestScore;
     private XmlDocument mScoreHistoryDB;
-    private Vector3 mWallBoundsSize;
+    public Vector3 mWallBoundsSize;
     public GameObject mCloneObstacle;
     private Vector2[] mDirections = {
         new Vector2(1, 0),
@@ -68,10 +68,14 @@ public class GameController : MonoBehaviour
         mPausePanel.SetActive(false);
         // Se calculeaza dimensiunile ecranului
         Vector2 topRightCorner = new Vector2(1, 1);
-        Vector2 edgeVector = Camera.main.ViewportToWorldPoint(topRightCorner);  // Contine coordonatele coltului dreapta-sus al ecranului in starea initiala
-        mScreenHeight = edgeVector.y * 2;
-        mScreenWidth = edgeVector.x * 2;
-        // Se calculeaza marginile impreuna cu alte dimensiuni pentru calcule ulterioare
+        Vector2 bottomLeftCorner = new Vector2(0, 0);
+
+        Vector2 edgeVectorTopRight = Camera.main.ViewportToWorldPoint(topRightCorner);  // Contine coordonatele coltului dreapta-sus al ecranului in starea initiala
+        Vector2 edgeVectorBottomLeft = Camera.main.ViewportToWorldPoint(bottomLeftCorner);  // Contine coordonatele coltului dreapta-sus al ecranului in starea initiala
+
+        mScreenHeight = edgeVectorTopRight.y - edgeVectorBottomLeft.y;
+        mScreenWidth = edgeVectorTopRight.x - edgeVectorBottomLeft.x;
+
         mWallBoundsSize = GameObject.FindGameObjectWithTag("PereteDreaptaBase").GetComponent<BoxCollider2D>().bounds.size;  // .x = width , .y = height, .z = depth of the gameobject
         mThirdPercentHeight = 0.33f * mScreenHeight;
         mThirdPercentWidth = 0.33f * (mScreenWidth - 2 * mWallBoundsSize.x);
@@ -126,6 +130,10 @@ public class GameController : MonoBehaviour
     {
         return mScreenHeight;
     }
+    public float GetScreenWidth()
+    {
+        return mScreenWidth;
+    }
     public void PauseGame()
     {
         if(mGameIsOver == false)
@@ -163,8 +171,14 @@ public class GameController : MonoBehaviour
                     Destroy(child.gameObject);
                 }
             }
+            float screenWidthInCoords = this.GetScreenWidth();
+            print("walls" + mWallBoundsSize.x);
+            float randomX = UnityEngine.Random.Range(
+                this.gameObject.transform.position.x - screenWidthInCoords / 2 + mWallBoundsSize.x,
+                this.gameObject.transform.position.x + screenWidthInCoords / 2 - mWallBoundsSize.x
+                );
 
-            GameObject clone = Instantiate(mPerkClone, new Vector3(mCamera.transform.position.x + UnityEngine.Random.Range(0, 1), mCamera.transform.position.y + 10, mPerkClone.transform.position.z), mPerkClone.transform.rotation);
+            GameObject clone = Instantiate(mPerkClone, new Vector3(randomX, mCamera.transform.position.y * 2 + 10, mPerkClone.transform.position.z), mPerkClone.transform.rotation);
             clone.tag = "PerkClone";
             clone.transform.parent = this.transform.parent;
         }

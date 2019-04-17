@@ -40,9 +40,9 @@ public class CameraController : MonoBehaviour {
         mLowerLimit = transform.position + mOffset;
         PlayerController pcontroller = mCharacter.GetComponent<PlayerController>();
 
-        AgentMovementControll agentMovement = mCharacter.GetComponentInChildren<AgentMovementControll>();
+        GhemAgent agent = mCharacter.GetComponentInChildren<GhemAgent>();
 
-        if ((pcontroller && pcontroller.mJumpedOnce) || (agentMovement && agentMovement.mJumpedOnce))
+        if ((pcontroller && pcontroller.mJumpedOnce) || (agent && agent.mJumpedOnce))
         {
             transform.position += Vector3.up * Time.fixedDeltaTime * mDificultyScale * ComputeCameraSpeed(mCharacter.transform.position.y - mLowerLimit.y);
         }

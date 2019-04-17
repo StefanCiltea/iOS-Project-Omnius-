@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public int mHighestPoint;
     private bool mIsInvulnerable;
     private SpriteRenderer mSpriteRenderer;
-	public AudioSource jumpSound;
+
     void Start()
     {
         mIsInvulnerable = false;
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
         mDirection = 1;
         mGameController = mGameControllerObj.GetComponent<GameController>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
-    
     }
 
     void Update()
@@ -55,9 +54,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-		if (mJumpReady == true && Input.GetKeyDown("space") /*Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began*/)
+        Debug.Log(Input.GetKeyDown("space"));
+
+		if (mJumpReady == true && Input.GetKeyDown("space"))
         {
-			jumpSound.Play ();
+
             mJumpReady = false;
             mRbody.AddForce(new Vector2(1100 * mDirection, 950));
 
@@ -109,6 +110,30 @@ public class PlayerController : MonoBehaviour
             gcScript.GameOver();
         }
         
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger " + collision.gameObject.tag);
+
+        if(collision.gameObject.tag == "ObstacolColider")
+        {
+            if (mIsInvulnerable)
+            {
+                Transform parent = collision.transform.parent;
+                Destroy(parent);
+                this.MakeVulnerable();
+            } else
+            {
+                GameObject gameControllerOb = GameObject.FindGameObjectWithTag("GameController");
+                gameControllerOb.GetComponent<GameController>().GameOver();
+            }
+        } else if(collision.gameObject.tag == "PerkClone")
+        {
+            Destroy(collision.gameObject);
+            this.MakeInvulnerable();
+        }
+
     }
 
     IEnumerator VulnerabilityTimer(float time)

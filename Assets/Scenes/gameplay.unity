@@ -554,6 +554,11 @@ PrefabInstance:
       propertyPath: jumpSound
       value: 
       objectReference: {fileID: 1714126293}
+    - target: {fileID: 58192879666446150, guid: 03869a4457a6b614c847310f15cae717,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03869a4457a6b614c847310f15cae717, type: 3}
 --- !u!114 &310282053 stripped

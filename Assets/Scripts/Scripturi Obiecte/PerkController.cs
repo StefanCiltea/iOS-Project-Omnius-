@@ -12,20 +12,4 @@ public class PerkController : AbstractObiectController
     }
 
     protected override void StartMovement() { }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            Destroy(this.gameObject);
-            print("invlulnerabile");
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            playerController.MakeInvulnerable();
-        } else if (collision.gameObject.tag == "Agent")
-        {
-            AgentMovementControll agentMovement = collision.gameObject.GetComponent<AgentMovementControll>();
-            agentMovement.MakeInvulnerable();
-            agentMovement.GetComponentInParent<GhemAgent>().onPerkHit();
-        }
-    }
 }
