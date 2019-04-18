@@ -2696,7 +2696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &130996662
 Transform:
   m_ObjectHideFlags: 0
@@ -36219,8 +36219,8 @@ Canvas:
   m_GameObject: {fileID: 1916801537}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1758338092}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -40118,8 +40118,7 @@ MonoBehaviour:
     broadcastingBrains:
     - {fileID: 11400000, guid: 360b44eaf45ce574e83cd6274ea56517, type: 2}
     - {fileID: 11400000, guid: 7803903be583fad49ae75c227e6f80d7, type: 2}
-    _brainsToControl:
-    - {fileID: 11400000, guid: 360b44eaf45ce574e83cd6274ea56517, type: 2}
+    _brainsToControl: []
   maxSteps: 0
   trainingConfiguration:
     width: 80
