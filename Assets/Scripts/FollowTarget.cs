@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
 {
-    public GameObject targetToFollow;
-    // Start is called before the first frame update
+    public Transform target;
 
-    // Update is called once per frame
-    void Update()
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
+
+    void FixedUpdate()
     {
-        if (targetToFollow.transform.position.y > this.transform.position.y)
-        {
-            this.transform.position = new Vector3(this.transform.position.x, targetToFollow.transform.position.y);
-        }    
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, new Vector3 (desiredPosition.x, desiredPosition.y, this.transform.position.z), smoothSpeed);
+        transform.position = smoothedPosition;
+
+        transform.LookAt(target);
     }
 }

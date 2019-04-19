@@ -60,12 +60,26 @@ public class GameController : MonoBehaviour
 
 
         // Configuratie initiala
-        mPlayButton.onClick.AddListener(RestartGame);
+        if(mPlayButton)
+        {
+            mPlayButton.onClick.AddListener(RestartGame);
+        }
         mGameIsPaused = false;
-        mScoreText.text = "Score: " + 0;
+
+        if (mScoreText)
+        {
+            mScoreText.text = "Score: " + 0;
+
+        }
         mGameIsOver = false;
-        mGameOverPanel.SetActive(false);
-        mPausePanel.SetActive(false);
+        if (mGameOverPanel)
+        {
+            mGameOverPanel.SetActive(false);
+        }
+        if(mPausePanel)
+        {
+            mPausePanel.SetActive(false);
+        }
         // Se calculeaza dimensiunile ecranului
         Vector2 topRightCorner = new Vector2(1, 1);
         Vector2 bottomLeftCorner = new Vector2(0, 0);

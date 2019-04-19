@@ -1,8 +1,8 @@
 
-=== Thu Mar 28 18:07:12 2019
+=== Fri Apr 12 09:39:44 2019
 
 Packages were changed.
-Update Mode: updateDependencies
+Update Mode: resetToDefaultDependencies
 
 The following packages were added:
   com.unity.analytics@3.2.2
@@ -42,7 +42,7 @@ The following packages were added:
   com.unity.modules.wind@1.0.0
   com.unity.modules.xr@1.0.0
 
-=== Fri Apr 12 11:35:32 2019
+=== Fri Apr 12 14:36:28 2019
 
 Packages were changed.
 Update Mode: updateDependencies

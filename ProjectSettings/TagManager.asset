@@ -4,24 +4,41 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Obstacol
-  - Perete
-  - PerechePereti
-  - GarbageCollector
-  - GameManager
-  - Score
-  - PereteStangaBase
-  - PereteDreaptaBase
-  - ClonaObstacol
-  - ObstacolColider
-  - Perk
-  - Agent
-  - PerkClone
-  - Ground
+  - agent
+  - iWall
+  - banana
+  - wall
+  - badBanana
+  - pit
+  - frozenAgent
+  - ball
+  - redGoal
+  - blueGoal
+  - blueAgent
+  - redAgent
+  - redBlock
+  - goal
+  - ground
+  - orangeBlock
+  - block
+  - orangeGoal
+  - switchOff
+  - pyramid
+  - switchOn
+  - stone
   - PerechePeretiBase
-  - ObstacleGeneratorClone
-  - ObstacleGenerator
+  - Perk
+  - PereteStangaBase
+  - Ground
+  - Agent
   - ObstacolBase
+  - ObstacolColider
+  - GarbageCollector
+  - PereteDreaptaBase
+  - ObstacleGenerator
+  - ClonaObstacol
+  - ObstacleGeneratorClone
+  - PerkClone
   layers:
   - Default
   - TransparentFX
@@ -31,12 +48,12 @@ TagManager:
   - UI
   - 
   - 
-  - Pereti
-  - 
-  - 
-  - 
-  - 
-  - 
+  - invisible
+  - ball
+  - goalieWall
+  - goalie
+  - strikerWall
+  - striker
   - 
   - 
   - 
