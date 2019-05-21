@@ -117,7 +117,8 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("gameplay", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
     }
 
     public void GameOver()
@@ -162,10 +163,7 @@ public class GameController : MonoBehaviour
         mGameIsPaused = false;
         mPausePanel.SetActive(false);
     }
-    public void ToMainMenu()
-    {
-        // todo implement this
-    }
+    
     IEnumerator SpawnPerkAfterTime(float time)
     {
 
@@ -197,4 +195,15 @@ public class GameController : MonoBehaviour
             clone.transform.parent = this.transform.parent;
         }
     }
+
+    public void gotoScene(string sceneName){
+        StartCoroutine(LoadScene(sceneName));
+    }
+
+    IEnumerator LoadScene(string sceneName){
+        // transitionAnim.SetTrigger("end");
+        yield return new WaitForSeconds(0);
+        SceneManager.LoadScene(sceneName);
+    }
+
 }

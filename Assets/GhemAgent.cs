@@ -65,7 +65,7 @@ public class GhemAgent : Agent
 
     public override void AgentReset()
     {
-
+        this.highestY = 0;
         foreach(Transform child in transform.parent)
         {
 
@@ -144,7 +144,7 @@ public class GhemAgent : Agent
             {
                 cnt++;
                 Vector2 fromMeToPerk = new Vector2(child.transform.position.x, child.transform.position.y) - myPosition;
-                AddVectorObs(fromMeToPerk.normalized);  // same thing we did with obstacles 
+                AddVectorObs(fromMeToPerk.normalized);  // same thing we did with obstacles
             }
         }
 
@@ -173,7 +173,7 @@ public class GhemAgent : Agent
         PushAgainstTheWall();
 
         if (vectorAction[0] == 1 )
-        {  
+        {
             // jump action is true
             Jump();
             isOnPlatform = false;
@@ -181,8 +181,13 @@ public class GhemAgent : Agent
 
         if(this.transform.position.y > highestY)
         {
-            SetReward(0.01f);
+            // Debug.Log("**********Higher: " + (this.transform.position.y - highestY));
+            SetReward((float)System.Math.Round(highestY - this.transform.position.y, 3));
             highestY = this.transform.position.y;
+        } else if ((this.transform.position.y - highestY) < -0.05f)
+        {
+            // Debug.Log("**********LOWER: " + System.Math.Round((this.transform.position.y - highestY) / 100, 3));
+            SetReward((float)System.Math.Round((this.transform.position.y - highestY) / 100, 3));
         }
 
         if(isOnPlatform)
@@ -273,4 +278,3 @@ public class GhemAgent : Agent
         MakeVulnerable();
     }
 }
-
